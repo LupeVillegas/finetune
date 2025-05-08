@@ -31,14 +31,15 @@ if user_path:
         
         # List folders inside
         filtered_folders = [f for f in os.listdir(user_path) if os.path.isdir(os.path.join(user_path, f))]
+        base_folder = user_path 
+        st.write(f"New root folder: `{base_folder}`")
         
     else:
         st.error("Invalid path. Please enter a valid directory.")
 else:
     filtered_folders = all_folders
 
-base_folder = user_path 
-st.write(f"New root folder: `{base_folder}`")
+
 
 #Let user select one folder 
 if filtered_folders:
