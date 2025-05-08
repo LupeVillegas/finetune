@@ -2,9 +2,10 @@
 
 import streamlit as st
 import subprocess
+import os
 import time
 from pathlib import Path
-#import finetune
+
 
 st.title('Fine-tune with microSAM')
 st.subheader("📂 File Search and Picker", divider = True)
