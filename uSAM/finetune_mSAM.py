@@ -14,15 +14,30 @@ base_folder = Path.cwd()
 st.write(f"Root folder: `{base_folder}`")
 
 #List all fOLDERS recursively
-#all_files = list(base_folder.rglob("*.*"))  # rglob searches all subfolders
 all_folders = [p for p in base_folder.rglob("*") if p.is_dir()]
 
-#Filter files based on the search query
-search_query = st.text_input("🔍 Search for a folder")
-if search_query:
-    filtered_folders = [f for f in all_folders if search_query.lower() in f.name.lower()]
+#Filter files based on the search 
+user_path = st.text_input("🔍 Search for a new root folder")
+if 'root_path' not in st.session_state:
+    st.session_state.root_path = None
+
+if user_path:
+    if os.path.isdir(user_path):
+        st.success(f"Folder found: {user_path}")
+        
+        # Save as root path
+        st.session_state.root_path = user_path
+        
+        # List folders inside
+        filtered_folders = [f for f in os.listdir(user_path) if os.path.isdir(os.path.join(user_path, f))]
+        
+    else:
+        st.error("Invalid path. Please enter a valid directory.")
 else:
     filtered_folders = all_folders
+
+base_folder = user_path 
+st.write(f"New root folder: `{base_folder}`")
 
 #Let user select one folder 
 if filtered_folders:
